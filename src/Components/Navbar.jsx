@@ -6,17 +6,15 @@ import { NavLink } from 'react-router-dom'
 const Navbar = () => {
   const state = useSelector((state) => state);
   const [categories, setCategories] = useState([]);
-  const [categoryData, setCategoryData] = useState("");
 
   useEffect(() => {
 
     const getCategory = async () => {
       const response = await fetch(`https://fakestoreapi.com/products/categories`);
-        setCategories(await response.json());
+      setCategories(await response.json());
     };
     getCategory();
   }, []);
-console.log(categoryData);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 shadow-sm">
@@ -34,16 +32,16 @@ console.log(categoryData);
                 Home
               </NavLink>
             </li>
-           
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Products Category
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 {
                   categories.map((category) => {
                     return (
-                      <li value={category} onClick={(e) => setCategoryData(category)}><a class="dropdown-item" href={`/products/${category}`}  >{category}</a></li>
+                      <li value={category} key={category}><a className="dropdown-item" href={`/products/${category}`}>{category}</a></li>
 
                     )
                   })

@@ -7,7 +7,6 @@ const Products = () => {
     const { category } = useParams();
 
     const [data, setData] = useState([]);
-    const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
     let componentMounted = true;
 
@@ -18,7 +17,6 @@ const Products = () => {
             const response = await fetch(`https://fakestoreapi.com/products/category/${category}`);
             if (componentMounted) {
                 setData(await response.clone().json());
-                setFilter(await response.json());
                 setLoading(false)
             }
             return () => {
@@ -38,11 +36,7 @@ const Products = () => {
         );
     };
 
-    const filterProduct = (cat) => {
-        const updatedList = data.filter((x) => x.category === cat);
-        setFilter(updatedList)
-    };
-
+   
     const ShowProducts = () => {
         return (
             <>
@@ -50,7 +44,7 @@ const Products = () => {
                     data.map((product) => {
                         return (
                             <>
-                                <div className="col-md-3 mb-4">
+                                <div className="col-md-3 mb-4" key={product.id}>
                                     <div className="card h-100 text-center p-4" key={product.id} >
                                         <img src={product.image} className="card-img-top" alt={product.title} height="250px" />
                                         <div className="card-body">

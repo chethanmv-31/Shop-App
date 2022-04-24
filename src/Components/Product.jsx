@@ -35,8 +35,8 @@ const Product = () => {
     }
     const ShowProduct = () => {
         return (
-            <>
-                <div className="col-md-6">
+            <div key={product.id} className="d-flex">
+                <div className="col-md-6" key={product.id}>
                     <img src={product.image} alt={product.title} height="400px" width="400px" />
                 </div>
                 <div className="col-md-6">
@@ -56,7 +56,7 @@ const Product = () => {
                     </p>
                     <button className="btn btn-outline-dark px-4 py-2" onClick={()=>addProduct(product)}> Add to Cart</button>
                 </div>
-            </>
+            </div>
         )
     }
     return (
