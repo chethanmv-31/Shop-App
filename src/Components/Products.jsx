@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom';
+import { useParams } from 'react-router'
+
 
 const Products = () => {
+    const { category } = useParams();
+
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
@@ -11,7 +15,7 @@ const Products = () => {
     useEffect(() => {
         const getProducts = async () => {
             setLoading(true);
-            const response = await fetch("https://fakestoreapi.com/products");
+            const response = await fetch(`https://fakestoreapi.com/products/category/${category}`);
             if (componentMounted) {
                 setData(await response.clone().json());
                 setFilter(await response.json());
@@ -24,7 +28,6 @@ const Products = () => {
 
         getProducts();
     }, []);
-    console.log(data)
 
 
     const Loading = () => {
@@ -43,16 +46,8 @@ const Products = () => {
     const ShowProducts = () => {
         return (
             <>
-                <div className="buttons d-flex justify-content-center mb-5 pb-5">
-                    <button className="btn btn-outline-dark me-2" onClick={() => { setFilter(data) }}>All</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("men's clothing")}>Mens Clothing</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("women's clothing")}>Women's Clothing</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("jewelery")}>Jewelry</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("electronics")}>Electronics</button>
-
-                </div>
                 {
-                    filter.map((product) => {
+                    data.map((product) => {
                         return (
                             <>
                                 <div className="col-md-3 mb-4">

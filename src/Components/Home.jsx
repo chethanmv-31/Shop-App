@@ -17,7 +17,7 @@ function Home() {
                 </div>
             </div>
             {/* <Products/> */}
-            <Product/>
+            
         </div>
     )
 }
